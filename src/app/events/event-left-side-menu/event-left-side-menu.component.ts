@@ -12,10 +12,10 @@ import { EventType } from '../event-type.model';
 import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import * as _moment from 'moment';
-// tslint:disable-next-line:no-duplicate-imports
 import {default as _rollupMoment, Moment} from 'moment';
 
 const moment = _rollupMoment || _moment;
+
 export const MY_FORMATS = {
   parse: {
     dateInput: 'MM/YYYY',
@@ -77,7 +77,6 @@ export class EventLeftSideMenuComponent implements OnInit {
   eventTypeSelected: number[]
 
   onCloseEventTypeSelect() {
-    this.eventForm.value;
     this.filterEvent.eventType = this.eventForm.value;
     this.filterEventEmitter.emit(this.filterEvent);
 }
@@ -216,21 +215,12 @@ export class EventLeftSideMenuComponent implements OnInit {
     return null;
   }
 
-  getSelect() {
-    this.checklistSelection.selected
-  }
-
   onSelectAccountType(eventAccountTypeId: number, event: any) {
     this.eventAccountTypeSelected[eventAccountTypeId] = event.checked;
     this.filterEvent.eventAccountType = this.eventAccountTypeSelected;
     this.filterEventEmitter.emit(this.filterEvent);
   }
 
-  monthSelectedHandler(event) {
-console.log(event)
-this.date.setValue(new Date(event));
-this.dp.close();
-}
  chosenYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.date.value;
     ctrlValue.year(normalizedYear.year());
