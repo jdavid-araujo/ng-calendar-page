@@ -92,7 +92,7 @@ export class EventLeftSideMenuComponent implements OnInit {
       this.dataSource.data = data;
     });
 
-    this.date = new FormControl(moment());
+    this.date = new FormControl({value: moment(), disabled: true});
 
 
   }

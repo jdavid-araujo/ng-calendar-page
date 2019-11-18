@@ -3,13 +3,13 @@
 <h4>Next Events</h4>
 
 <mat-form-field>
-    <input matInput [matDatepicker]="dp" placeholder="Choose the event date" [formControl]="date">
+    <input matInput [matDatepicker]="dp" placeholder="Choose the event date" [formControl]="date" disabled>
     <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
     <mat-datepicker #dp
                     startView="multi-year"
                     (yearSelected)="chosenYearHandler($event)"
                     (monthSelected)="chosenMonthHandler($event, dp)"
-                    panelClass="example-month-picker">
+                    disabled="false">
     </mat-datepicker>
   </mat-form-field>
 
