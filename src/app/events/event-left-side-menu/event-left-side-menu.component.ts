@@ -9,18 +9,48 @@ import { FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { EventSelectEmitter } from '../event-select-emitter.model';
 import { EventType } from '../event-type.model';
+import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+import {default as _rollupMoment, Moment} from 'moment';
+
+const moment = _rollupMoment || _moment;
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'MM/YYYY',
+  },
+  display: {
+    dateInput: 'MMMM, YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-event-left-side-menu',
   templateUrl: './event-left-side-menu.component.html',
-  styleUrls: ['./event-left-side-menu.component.scss']
+  styleUrls: ['./event-left-side-menu.component.scss'],
+  providers: [
+    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
+    // application's root module. We provide it at the component level here, due to limitations of
+    // our example generation script.
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class EventLeftSideMenuComponent implements OnInit {
 
   eventAccountTypeSelected: boolean[];
 
-  @ViewChild('picker', {static: false}) picker: MatDatepicker<any>;
-  date = new FormControl(new Date());
+  @ViewChild('dp', {static: false}) dp: MatDatepicker<any>;
+  date = new FormControl();
 
   filterEvent:EventSelectEmitter;
 
@@ -61,6 +91,9 @@ export class EventLeftSideMenuComponent implements OnInit {
     _database.dataChangeLocationTree.subscribe(data => {
       this.dataSource.data = data;
     });
+
+    this.date = new FormControl(moment());
+
 
   }
 
@@ -196,6 +229,18 @@ export class EventLeftSideMenuComponent implements OnInit {
   monthSelectedHandler(event) {
 console.log(event)
 this.date.setValue(new Date(event));
-this.picker.close();
+this.dp.close();
 }
+ chosenYearHandler(normalizedYear: Moment) {
+    const ctrlValue = this.date.value;
+    ctrlValue.year(normalizedYear.year());
+    this.date.setValue(ctrlValue);
+  }
+
+  chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.date.value;
+    ctrlValue.month(normalizedMonth.month());
+    this.date.setValue(ctrlValue);
+    datepicker.close();
+  }
 }

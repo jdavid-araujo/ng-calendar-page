@@ -1,19 +1,10 @@
 
-.example-section {
-  display: flex;
-  align-content: center;
-  align-items: center;
-  height: 60px;
+.mat-tree-node {
+  min-height: 0;
+  max-height: 25px;
 }
 
-.example-tree-invisible {
-    display: none;
-  }
-  
-  .example-tree ul,
-  .example-tree li {
-    margin-top: 0;
-    margin-bottom: 0;
-    list-style-type: none;
-  }
-  
+.text-margin {
+  margin-bottom: 0;
+  margin-top: 1rem;;
+}
