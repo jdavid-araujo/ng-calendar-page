@@ -7,7 +7,6 @@
     <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
     <mat-datepicker #dp
                     startView="multi-year"
-                    (yearSelected)="chosenYearHandler($event)"
                     (monthSelected)="chosenMonthHandler($event, dp)"
                     disabled="false">
     </mat-datepicker>
@@ -27,7 +26,7 @@
     <p class="text-margin">Event Type</p>
     <mat-form-field>
       <mat-label>Select the event</mat-label>
-      <mat-select [formControl]="eventForm" multiple (closed)="onCloseEventTypeSelect()">
+      <mat-select [formControl]="eventTypeForm" multiple (closed)="onCloseEventTypeSelect()">
         <mat-option *ngFor="let eventType of eventsTypeMock" [value]="eventType.id">{{eventType.name}}</mat-option>
       </mat-select>
     </mat-form-field>

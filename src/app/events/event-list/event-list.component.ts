@@ -41,8 +41,17 @@ export class EventListComponent implements OnInit {
   return (countryCity.includes(event.country.city) || (countryCity.includes(event.country.name)));
   }
 
+  isEventOnDate(event: Event) {
+    if ((event.endDate.getTime() >= this.eventFilter.eventDate.getTime()) && (event.endDate.getTime() <= (this.eventFilter.eventDate.getTime() + 2592000000))) {
+      return true;
+    }
+
+    return false;
+  }
+
   filterEventType(countryCity: string[]) {
     this.eventsFilterMock = new Array<Event>();
+
 
     for (let index = 0; index < this.eventsMock.length; index++) {
 
@@ -81,5 +90,7 @@ export class EventListComponent implements OnInit {
     if(this.eventFilter.eventType.length !== 0) {
       this.eventsFilterMock = this.eventsFilterMock.filter(event => this.eventFilter.eventType.includes(event.type.id));
     }
+
+    this.eventsFilterMock = this.eventsFilterMock.filter(event => this.isEventOnDate(event));    
   }
 }

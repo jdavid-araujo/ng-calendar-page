@@ -50,7 +50,7 @@ export class EventLeftSideMenuComponent implements OnInit {
   eventAccountTypeSelected: boolean[];
 
   @ViewChild('dp', {static: false}) dp: MatDatepicker<any>;
-  date = new FormControl();
+  date = new FormControl(new Date());
 
   filterEvent:EventSelectEmitter;
 
@@ -72,12 +72,12 @@ export class EventLeftSideMenuComponent implements OnInit {
   checklistSelection = new SelectionModel<TodoItemFlatNode>(true /* multiple */);
 
   eventsTypeMock: Array<EventType>;
-  eventForm: FormControl;
+  eventTypeForm: FormControl;
 
   eventTypeSelected: number[]
 
   onCloseEventTypeSelect() {
-    this.filterEvent.eventType = this.eventForm.value;
+    this.filterEvent.eventType = this.eventTypeForm.value;
     this.filterEventEmitter.emit(this.filterEvent);
 }
 
@@ -86,20 +86,17 @@ export class EventLeftSideMenuComponent implements OnInit {
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-    this.eventForm = new FormControl();
+    this.eventTypeForm = new FormControl();
     _database.dataChangeLocationTree.subscribe(data => {
       this.dataSource.data = data;
     });
-
-    this.date = new FormControl({value: moment(), disabled: true});
-
 
   }
 
   ngOnInit() {
     this.eventAccountTypeSelected = [false, false];
     this.eventTypeSelected = [];
-    this.filterEvent =  new EventSelectEmitter( this.eventAccountTypeSelected, this.checklistSelection.selected, this.eventTypeSelected);
+    this.filterEvent =  new EventSelectEmitter( this.eventAccountTypeSelected, this.checklistSelection.selected, this.eventTypeSelected,new Date());
     this.eventsTypeMock = this._database.getEventsTypeMock();
   }
 
@@ -221,16 +218,11 @@ export class EventLeftSideMenuComponent implements OnInit {
     this.filterEventEmitter.emit(this.filterEvent);
   }
 
- chosenYearHandler(normalizedYear: Moment) {
-    const ctrlValue = this.date.value;
-    ctrlValue.year(normalizedYear.year());
-    this.date.setValue(ctrlValue);
-  }
-
-  chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.date.value;
-    ctrlValue.month(normalizedMonth.month());
-    this.date.setValue(ctrlValue);
+  chosenMonthHandler(event, datepicker: MatDatepicker<Moment>) {
+    const date: Date = new Date(event);
+    this.date.setValue(date);
+    this.filterEvent.eventDate = date;
+    this.filterEventEmitter.emit(this.filterEvent);
     datepicker.close();
   }
 }

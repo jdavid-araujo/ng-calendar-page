@@ -5,10 +5,12 @@ export class EventSelectEmitter {
     public eventAccountType: boolean[];
     public eventLocation: TodoItemFlatNode[];
     public eventType: number[];
+    public eventDate: Date;
 
-    constructor(eventAccountType: boolean[], eventLocation: TodoItemFlatNode[], eventType: number[] ) {
+    constructor(eventAccountType: boolean[], eventLocation: TodoItemFlatNode[], eventType: number[], eventDate: Date) {
         this.eventAccountType = eventAccountType;
         this.eventLocation = eventLocation;
         this.eventType = eventType;
+        this.eventDate = eventDate;
     }
 }
