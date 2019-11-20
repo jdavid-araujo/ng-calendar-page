@@ -3,6 +3,7 @@ import { EventService } from '../event.service';
 import { Event } from '../event.model';
 import { EventSelectEmitter } from '../event-select-emitter.model';
 import { stringify } from 'querystring';
+import { UserService } from 'src/app/shared/user.service';
 
 @Component({
   selector: 'app-event-list',

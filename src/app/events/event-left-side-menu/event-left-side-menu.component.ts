@@ -96,9 +96,11 @@ export class EventLeftSideMenuComponent implements OnInit {
   ngOnInit() {
     this.eventAccountTypeSelected = [false, false];
     this.eventTypeSelected = [];
+    const date: Date = new Date();
+    date.setDate(1);
     this.filterEvent =  new EventSelectEmitter( [true, true],
                                                 this.checklistSelection.selected,
-                                                this.eventTypeSelected, new Date());
+                                                this.eventTypeSelected, date);
     this.filterEventEmitter.emit(this.filterEvent);
     this.eventsTypeMock = this.service.getEventsTypeMock();
   }
@@ -223,6 +225,7 @@ export class EventLeftSideMenuComponent implements OnInit {
 
   chosenMonthHandler(event, datepicker: MatDatepicker<Moment>) {
     const date: Date = new Date(event);
+    date.setDate(1);
     this.date.setValue(date);
     this.filterEvent.eventDate = date;
     this.filterEventEmitter.emit(this.filterEvent);

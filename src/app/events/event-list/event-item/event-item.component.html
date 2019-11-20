@@ -24,7 +24,10 @@
     </mat-card-content>
     <mat-card-actions align="end">
         <button mat-raised-button color="primary">See Details</button>
-        <button mat-raised-button color="primary">Apply</button>
+        <button mat-raised-button [disabled]="getUser().accountype.id !== event.accessLevel.id && event.accessLevel.id === 1 || isEventPassed()" (click)="onRegister()" color="primary">{{ (isUserRegistredOnEvent() === true) ? 'Applied' : 'Apply' }}</button>
     </mat-card-actions>
+
+    <p *ngIf="getUser().accountype.id !== event.accessLevel.id && event.accessLevel.id === 1">Only premium members can apply </p>
+    <p *ngIf="isEventPassed()">Event is not valid</p>
   </mat-card>
 
