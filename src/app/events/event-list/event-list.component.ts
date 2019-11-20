@@ -4,6 +4,7 @@ import { Event } from '../event.model';
 import { EventSelectEmitter } from '../event-select-emitter.model';
 import { stringify } from 'querystring';
 import { UserService } from 'src/app/shared/user.service';
+import { log } from 'util';
 
 @Component({
   selector: 'app-event-list',
@@ -43,8 +44,22 @@ export class EventListComponent implements OnInit {
   }
 
   isEventOnDate(event: Event) {
-    if ((event.endDate.getTime() >= this.eventFilter.eventDate.getTime()) &&
-              (event.endDate.getTime() <= (this.eventFilter.eventDate.getTime() + 2592000000))) {
+    let year: number = 0;
+    let month: number = 0;
+
+    if (this.eventFilter.eventDate.getMonth() === 11) {
+          year = this.eventFilter.eventDate.getFullYear() + 1;
+          month = 0;
+    } else {
+      year = this.eventFilter.eventDate.getFullYear();
+      month = this.eventFilter.eventDate.getMonth() + 1;
+    }
+
+    const dateLimit: Date = new Date(year, month, 1);
+    const dateInitial: Date = new Date(this.eventFilter.eventDate.getFullYear(), this.eventFilter.eventDate.getMonth(), 1);
+
+    if ((event.endDate.getTime() >= dateInitial.getTime()) &&
+              (event.endDate.getTime() < dateLimit.getTime())) {
       return true;
     }
 
