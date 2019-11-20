@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { EventsRoutingModule } from './events-routing.module';
-import { EventCardComponent } from './event-card/event-card.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { EventItemComponent } from './event-list/event-item/event-item.component';
 import { EventLeftSideMenuComponent } from './event-left-side-menu/event-left-side-menu.component';
@@ -23,7 +22,7 @@ import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
-  declarations: [EventCardComponent, EventListComponent, EventItemComponent, EventLeftSideMenuComponent],
+  declarations: [EventListComponent, EventItemComponent, EventLeftSideMenuComponent],
   imports: [
     CommonModule,
     EventsRoutingModule,
@@ -41,8 +40,8 @@ import {MatSelectModule} from '@angular/material/select';
     ReactiveFormsModule,
     MatSelectModule
   ],
-  providers: [  
-    MatDatepickerModule,  
+  providers: [
+    MatDatepickerModule,
   ],
 })
 export class EventsModule { }

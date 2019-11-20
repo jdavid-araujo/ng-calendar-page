@@ -52,7 +52,7 @@ export class EventLeftSideMenuComponent implements OnInit {
   @ViewChild('dp', {static: false}) dp: MatDatepicker<any>;
   date = new FormControl(new Date());
 
-  filterEvent:EventSelectEmitter;
+  filterEvent: EventSelectEmitter;
 
   @Output() filterEventEmitter = new EventEmitter<EventSelectEmitter>();
 
@@ -74,20 +74,20 @@ export class EventLeftSideMenuComponent implements OnInit {
   eventsTypeMock: Array<EventType>;
   eventTypeForm: FormControl;
 
-  eventTypeSelected: number[]
+  eventTypeSelected: number[];
 
   onCloseEventTypeSelect() {
     this.filterEvent.eventType = this.eventTypeForm.value;
     this.filterEventEmitter.emit(this.filterEvent);
 }
 
-  constructor(private _database: EventService) {
+  constructor(private service: EventService) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
     this.eventTypeForm = new FormControl();
-    _database.dataChangeLocationTree.subscribe(data => {
+    service.dataChangeLocationTree.subscribe(data => {
       this.dataSource.data = data;
     });
 
@@ -96,8 +96,11 @@ export class EventLeftSideMenuComponent implements OnInit {
   ngOnInit() {
     this.eventAccountTypeSelected = [false, false];
     this.eventTypeSelected = [];
-    this.filterEvent =  new EventSelectEmitter( this.eventAccountTypeSelected, this.checklistSelection.selected, this.eventTypeSelected,new Date());
-    this.eventsTypeMock = this._database.getEventsTypeMock();
+    this.filterEvent =  new EventSelectEmitter( [true, true],
+                                                this.checklistSelection.selected,
+                                                this.eventTypeSelected, new Date());
+    this.filterEventEmitter.emit(this.filterEvent);
+    this.eventsTypeMock = this.service.getEventsTypeMock();
   }
 
   getLevel = (node: TodoItemFlatNode) => node.level;
@@ -106,9 +109,9 @@ export class EventLeftSideMenuComponent implements OnInit {
 
   getChildren = (node: TodoItemNode): TodoItemNode[] => node.children;
 
-  hasChild = (_: number, _nodeData: TodoItemFlatNode) => _nodeData.expandable;
+  hasChild = (_: number, nodeData: TodoItemFlatNode) => nodeData.expandable;
 
-  hasNoContent = (_: number, _nodeData: TodoItemFlatNode) => _nodeData.item === '';
+  hasNoContent = (_: number, nodeData: TodoItemFlatNode) => nodeData.item === '';
 
   /**
    * Transformer to convert nested node to flat node. Record the nodes in maps for later use.

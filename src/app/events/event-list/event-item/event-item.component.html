@@ -1,19 +1,19 @@
-<mat-card class="">
+<mat-card>
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
+      <div mat-card-avatar [ngStyle]="{'background-image': 'url(' + event.country.imageUrl + ')', 'background-size': 'cover'}"></div>
       <mat-card-title>{{event.name}}</mat-card-title>
       <mat-card-subtitle>{{event.type.name}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <img mat-card-image [src]=event.country.imageUrl alt="Photo of the city">
     <mat-card-content>
         <div class="with-icon">
-            <mat-icon aria-hidden="false" aria-label="Location icon">location_on</mat-icon>{{event.country.name}} - {{event.country.city}}
+            <mat-icon aria-hidden="false" aria-label="Location icon">location_on</mat-icon>{{event.country.city}} - {{event.country.name}}
           </div>
       <div class="with-icon">
           <mat-icon aria-hidden="false" aria-label="Location icon">timer</mat-icon>{{ event.startDate | date:'dd/MM/yyyy HH:mm:ss' }}
     </div>
     <div class="with-icon">
-        <mat-icon aria-hidden="false" aria-label="Location icon">timer_off</mat-icon>{{ event.endDate | date:'dd/MM/yyyy HH:mm:ss' }}
+        <mat-icon aria-hidden="false" aria-label="Location icon">event_avaliable</mat-icon>{{ event.endDate | date:'dd/MM/yyyy HH:mm:ss' }}
   </div>
   <div class="with-icon">
       <mat-icon aria-hidden="false" aria-label="Location icon">{{event.accessLevel.name === 'Non-Premium' ? 'lock_open' : 'lock'}}</mat-icon>{{event.accessLevel.name === 'Non-Premium' ? 'Open event' : 'Only premium members'}}
@@ -24,7 +24,7 @@
     </mat-card-content>
     <mat-card-actions align="end">
         <button mat-raised-button color="primary">See Details</button>
-        <button mat-raised-button (click)="onApply()" color="primary">Apply</button>
+        <button mat-raised-button color="primary">Apply</button>
     </mat-card-actions>
   </mat-card>
 

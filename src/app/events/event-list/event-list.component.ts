@@ -12,10 +12,10 @@ import { stringify } from 'querystring';
 export class EventListComponent implements OnInit {
 
   eventsMock: Array<Event>;
-  eventFilter: EventSelectEmitter
+  eventFilter: EventSelectEmitter;
   eventsFilterMock: Array<Event>;
 
-  constructor(private eventService: EventService) { 
+  constructor(private eventService: EventService) {
     this.eventsMock = new Array<Event>();
     this.eventsFilterMock = new Array<Event>();
   }
@@ -27,9 +27,9 @@ export class EventListComponent implements OnInit {
 
   filterChange(eventFilter: EventSelectEmitter) {
     this.eventFilter = eventFilter;
-    let countryCity: string[] = [];                   ;
+    const countryCity: string[] = [];
 
-    for (let filter of eventFilter.eventLocation) {
+    for (const filter of eventFilter.eventLocation) {
       countryCity.push(filter.item);
     }
 
@@ -42,7 +42,8 @@ export class EventListComponent implements OnInit {
   }
 
   isEventOnDate(event: Event) {
-    if ((event.endDate.getTime() >= this.eventFilter.eventDate.getTime()) && (event.endDate.getTime() <= (this.eventFilter.eventDate.getTime() + 2592000000))) {
+    if ((event.endDate.getTime() >= this.eventFilter.eventDate.getTime()) &&
+              (event.endDate.getTime() <= (this.eventFilter.eventDate.getTime() + 2592000000))) {
       return true;
     }
 
@@ -55,9 +56,9 @@ export class EventListComponent implements OnInit {
 
     for (let index = 0; index < this.eventsMock.length; index++) {
 
-        if (((this.eventFilter.eventAccountType[0] == true) && (this.eventFilter.eventAccountType[1] == true))
-            ||  ((this.eventFilter.eventAccountType[0] == false) && (this.eventFilter.eventAccountType[1] == false))) {
-              if(this.eventFilter.eventLocation.length == 0) {
+        if (((this.eventFilter.eventAccountType[0] === true) && (this.eventFilter.eventAccountType[1] === true))
+            ||  ((this.eventFilter.eventAccountType[0] === false) && (this.eventFilter.eventAccountType[1] === false))) {
+              if (this.eventFilter.eventLocation.length === 0) {
                 this.eventsFilterMock = this.eventsMock;
                 break;
               } else {
@@ -66,31 +67,31 @@ export class EventListComponent implements OnInit {
               }
         }
 
-        if ((this.eventFilter.eventAccountType[0] == true) && (this.eventsMock[index].accessLevel.id == 0)) {
-          if(this.eventFilter.eventLocation.length == 0) {
+        if ((this.eventFilter.eventAccountType[0] === true) && (this.eventsMock[index].accessLevel.id === 0)) {
+          if (this.eventFilter.eventLocation.length === 0) {
             this.eventsFilterMock.push(this.eventsMock[index]);
           } else {
-            if(countryCity.includes(this.eventsMock[index].country.city) || countryCity.includes(this.eventsMock[index].country.name)) {
+            if (countryCity.includes(this.eventsMock[index].country.city) || countryCity.includes(this.eventsMock[index].country.name)) {
               this.eventsFilterMock.push(this.eventsMock[index]);
             }
           }
-        } 
+        }
 
-        if ((this.eventFilter.eventAccountType[1] == true) && (this.eventsMock[index].accessLevel.id == 1)) {
-          if(this.eventFilter.eventLocation.length == 0) {
+        if ((this.eventFilter.eventAccountType[1] === true) && (this.eventsMock[index].accessLevel.id === 1)) {
+          if (this.eventFilter.eventLocation.length === 0) {
             this.eventsFilterMock.push(this.eventsMock[index]);
           } else {
-            if(countryCity.includes(this.eventsMock[index].country.city) || countryCity.includes(this.eventsMock[index].country.name)) {
+            if (countryCity.includes(this.eventsMock[index].country.city) || countryCity.includes(this.eventsMock[index].country.name)) {
               this.eventsFilterMock.push(this.eventsMock[index]);
             }
-          }       
-         } 
+          }
+         }
     }
 
-    if(this.eventFilter.eventType.length !== 0) {
+    if (this.eventFilter.eventType.length !== 0) {
       this.eventsFilterMock = this.eventsFilterMock.filter(event => this.eventFilter.eventType.includes(event.type.id));
     }
 
-    this.eventsFilterMock = this.eventsFilterMock.filter(event => this.isEventOnDate(event));    
+    this.eventsFilterMock = this.eventsFilterMock.filter(event => this.isEventOnDate(event));
   }
 }

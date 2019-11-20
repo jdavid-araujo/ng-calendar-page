@@ -21,12 +21,15 @@ export class EventService {
 
   getEventsMock(): Array<Event> {
     let events: Array<Event> = new Array<Event>();
-    
-    events.push(new Event(1, 'Test1', new Country('Canada', 'Toronto'), new AccountType(0, 'Non-Premium'), new EventType(0, 'Leaps'),new Date(), new Date(), 'test'));
-    events.push(new Event(2, 'Test2', new Country('Canada', 'Toronto'), new AccountType(1, 'Premium'), new EventType(1, 'Recruiting missions'),new Date(), new Date(), 'test'));
-    events.push(new Event(3, 'Test3', new Country('Canada', 'Montreal'), new AccountType(1, 'Premium'), new EventType(2, 'Q&A Sessions'),new Date(), new Date(), 'test'));
-    events.push(new Event(4, 'Test4', new Country('United Kingdom', 'London'), new AccountType(0, 'Non-Premium'), new EventType(0, 'Leaps'),new Date(), new Date(), 'test'));
-    events.push(new Event(5, 'Test5', new Country('United Kingdom', 'Liverpool'), new AccountType(1, 'Premium'), new EventType(3, 'VanHackathons'),new Date(), new Date(), 'test'));
+
+    events.push(new Event(1, 'Event1', new Country('Canada', 'Toronto', 'https://vanhackblobstorageprod.blob.core.windows.net/img/events/thumbnail/1e2d6be2-b729-4ebb-8d0c-2c75035efbee.jpg'), new AccountType(0, 'Non-Premium'), new EventType(0, 'Leaps'),new Date('05-06-2019'), new Date('12-02-2019'), 'The event is about......'));
+    events.push(new Event(2, 'Event2', new Country('Canada', 'Toronto', 'https://vanhackblobstorageprod.blob.core.windows.net/img/events/thumbnail/1e2d6be2-b729-4ebb-8d0c-2c75035efbee.jpg'), new AccountType(1, 'Premium'), new EventType(1, 'Recruiting missions'),new Date('03-05-2019'), new Date('12-12-2019'), 'The event is about......'));
+    events.push(new Event(3, 'Event3', new Country('Canada', 'Montreal', 'https://vanhackblobstorageprod.blob.core.windows.net/img/events/thumbnail/351665ed-4492-4749-ba43-c8e58f14888e.jpg'), new AccountType(1, 'Premium'), new EventType(2, 'Q&A Sessions'),new Date('04-03-2020'), new Date('11-04-2020'), 'The event is about......'));
+    events.push(new Event(4, 'Event4', new Country('United Kingdom', 'London', 'https://vanhackblobstorageprod.blob.core.windows.net/img/events/thumbnail/4d8170b8-9ba6-4365-82ae-f028f02b281c.jpg'), new AccountType(0, 'Non-Premium'), new EventType(0, 'Leaps'),new Date('06-02-2019'), new Date('02-08-2019'), 'The event is about......'));
+    events.push(new Event(5, 'Event5', new Country('United Kingdom', 'Liverpool', 'https://vanhackblobstorageprod.blob.core.windows.net/img/events/thumbnail/9e7bf694-b476-4b93-8981-68c36fbc7235.jpg'), new AccountType(1, 'Premium'), new EventType(3, 'VanHackathons'),new Date('02-01-2019'), new Date('07-08-2019'), 'The event is about......'));
+    events.push(new Event(6, 'Event6', new Country('United Kingdom', 'London', 'https://vanhackblobstorageprod.blob.core.windows.net/img/events/thumbnail/4d8170b8-9ba6-4365-82ae-f028f02b281c.jpg'), new AccountType(0, 'Non-Premium'), new EventType(0, 'Leaps'),new Date('06-02-2019'), new Date('11-08-2019'), 'The event is about......'));
+    events.push(new Event(7, 'Event7', new Country('United Kingdom', 'London', 'https://vanhackblobstorageprod.blob.core.windows.net/img/events/thumbnail/4d8170b8-9ba6-4365-82ae-f028f02b281c.jpg'), new AccountType(0, 'Non-Premium'), new EventType(0, 'Leaps'),new Date('06-02-2019'), new Date('11-29-2019'), 'The event is about......'));
+    events.push(new Event(8, 'Event8', new Country('Canada', 'Montreal', 'https://vanhackblobstorageprod.blob.core.windows.net/img/events/thumbnail/351665ed-4492-4749-ba43-c8e58f14888e.jpg'), new AccountType(0, 'Non-Premium'), new EventType(0, 'Leaps'),new Date('06-02-2019'), new Date('11-20-2019'), 'The event is about......'));
 
     return events;
   }
@@ -37,7 +40,7 @@ export class EventService {
 
   getEventsTypeMock(): Array<EventType> {
     let eventsType: Array<EventType> = new Array<EventType>();
-    
+
     eventsType.push(new EventType(0, 'Leaps'));
     eventsType.push(new EventType(1, 'Recruiting missions'));
     eventsType.push(new EventType(2, 'Q&A Sessions'));
@@ -75,7 +78,7 @@ export class EventService {
         'Liverpool'
       ]
       }
-    
+
 
     return TREE_COUNTRY;
    // return eventLocation;
